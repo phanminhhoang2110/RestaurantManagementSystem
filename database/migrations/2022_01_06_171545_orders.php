@@ -16,6 +16,13 @@ class Orders extends Migration
         Schema::create('orders', function (Blueprint $table){
            $table->id();
            $table->timestamp('first_order_send_time');
+           $table->integer('session_id');
+           $table->integer('table_id');
+           $table->json('staff');
+           $table->integer('total_bill');
+           $table->integer('discount');
+           $table->integer('total_amount');
+           $table->integer('excess_cash');
         });
     }
 
