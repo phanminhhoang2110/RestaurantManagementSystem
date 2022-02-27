@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->int('birthday');
-            $table->timestamp();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
