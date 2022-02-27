@@ -26,9 +26,14 @@ class AuthenticationController extends Controller
             $user = new User();
             $user->username = $username;
             $user->password = $password;
-            $user->save();
+            try {
+                $user->save();
+                return $this->successResult('Register successfully');
+            }catch (\Exception $exception){
+                return $this->failResult($exception->getMessage());
+            }
         }else{
-            return 1000;
+            return $this->failResult('Password not equal re-password');
         }
     }
 
