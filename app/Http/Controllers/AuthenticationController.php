@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationController extends Controller
 {
@@ -25,7 +27,7 @@ class AuthenticationController extends Controller
         if($password == $rePassword){
             $user = new User();
             $user->username = $username;
-            $user->password = $password;
+            $user->password = bcrypt($password);
             try {
                 $user->save();
                 return $this->successResult('Register successfully');
@@ -39,18 +41,23 @@ class AuthenticationController extends Controller
 
     /**
      * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only('username', 'password');
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $user = User::query()->where('username', '=', $credentials['username'])->first();
+        if ($user)
+        {
+            if (!Hash::check($credentials['password'], $user->password)) {
+                return $this->failResult('Login fail');
+            }else{
+                $token = JWTAuth::fromUser($user);
+                return $this->respondWithToken($token);
+            }
+        }else{
+            return $this->failResult('Login fail');
         }
-
-        return $this->respondWithToken($token);
     }
 
     /**
