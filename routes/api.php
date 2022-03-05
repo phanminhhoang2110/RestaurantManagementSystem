@@ -31,4 +31,10 @@ Route::group([
 
 });
 
+Route::group([
+    'prefix' => 'item'
+], function ($router){
+    Route::get('get-all', 'App\Http\Controllers\ItemController@getAllItems');
+});
+
 Route::get('check', 'App\Http\Controllers\TestController@index');
