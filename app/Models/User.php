@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Eloquent implements JWTSubject, \Illuminate\Contracts\Auth\Authenticatable
+class User extends Eloquent implements JWTSubject, Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey = 'iid';
+    protected $primaryKey = '_id';
 
     /**
      * The attributes that are mass assignable.
@@ -58,7 +57,7 @@ class User extends Eloquent implements JWTSubject, \Illuminate\Contracts\Auth\Au
 
     public function getAuthIdentifierName()
     {
-        // TODO: Implement getAuthIdentifierName() method.
+        return '_id';
     }
 
     public function getAuthIdentifier()
