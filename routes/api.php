@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +35,13 @@ Route::group([
 ], function ($router){
     Route::get('get-all', 'App\Http\Controllers\ItemController@getAllItems');
 });
+
+Route::group([
+    'prefix' => 'table'
+], function ($router){
+    Route::get('get-all', 'App\Http\Controllers\TableController@getAllTables');
+});
+
+Route::get('add-tables', 'App\Http\Controllers\TableController@addTables');
 
 Route::get('check', 'App\Http\Controllers\TestController@index');

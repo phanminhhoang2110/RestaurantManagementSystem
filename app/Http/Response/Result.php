@@ -21,4 +21,14 @@ trait Result
             'status' => 500
         ];
     }
+
+    function successResultWithData($data, $message = null) : array
+    {
+        return [
+            'success' => true,
+            'message' => $message ?: 'Action successfully',
+            'data' => $data,
+            'status' => 200
+        ];
+    }
 }
