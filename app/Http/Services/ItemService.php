@@ -2,9 +2,12 @@
 
 namespace App\Http\Services;
 
+use App\Models\Item;
+
 class ItemService extends BaseService
 {
     public function getAllItemsService(){
-        dd(1000);
+        $item = Item::all();
+        return $this->successResultWithData($item);
     }
 }

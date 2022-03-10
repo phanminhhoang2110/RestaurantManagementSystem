@@ -13,6 +13,6 @@ class ItemController extends Controller
     }
 
     function getAllItems(Request $request){
-        $this->service->getAllItemsService();
+        return $this->service->getAllItemsService();
     }
 }
