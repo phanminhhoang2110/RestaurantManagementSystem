@@ -9,4 +9,8 @@ class Table extends Eloquent
 {
     use HasFactory;
     protected $primaryKey = '_id';
+
+    protected $id;
+    protected $name;
+    protected $code;
 }
