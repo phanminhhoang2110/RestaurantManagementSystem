@@ -63,11 +63,16 @@ class AuthenticationController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        if($user){
+            return $this->successResultWithData($user);
+        }else{
+            return $this->failResult();
+        }
     }
 
     /**
